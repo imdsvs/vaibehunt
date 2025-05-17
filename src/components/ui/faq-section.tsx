@@ -177,3 +177,5 @@ const FaqItem = React.forwardRef<
   );
 });
 FaqItem.displayName = "FaqItem";
+
+export { FaqSection }
