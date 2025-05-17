@@ -20,9 +20,9 @@ const Hero: React.FC = () => {
             </h1>
             
             <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-              v(ai)behunt is where creators showcase projects built with AI tools.
-              Join our waitlist to be the first to know when we launch.
-            </p>
+  A curated space for AI-built projects — shipped fast, and dripping with vibe. Join the waitlist to be first in.
+</p>
+
             
             <button 
               onClick={() => setIsWaitlistOpen(true)}
