@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Braces } from 'lucide-react';
 import WaitlistModal from './WaitlistModal';
 
 const Header: React.FC = () => {
@@ -23,15 +22,9 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-          <a href="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <Braces 
-                size={28} 
-                className="text-purple-600 transform transition-transform group-hover:rotate-12 duration-300" 
-              />
-            </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-800">
-              v(ai)be<span className="text-purple-600">hunt</span>
+          <a href="/" className="group">
+            <span className="text-2xl font-bold tracking-tight">
+              v<span className="font-mono bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-purple-500 to-purple-700">[AI]</span>behunt
             </span>
           </a>
 
