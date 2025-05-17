@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "framer-motion": "^11.0.3"
+  },
+  "scripts": {
+    "dev": "vite"
   }
 }
