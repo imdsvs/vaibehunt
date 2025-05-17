@@ -8,14 +8,52 @@ interface WaitlistModalProps {
   onClose: () => void;
 }
 
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW = 10000; // 10 seconds in milliseconds
+const MAX_ATTEMPTS = 2;
+
+// Rate limiting state
+const emailAttempts = new Map<string, { count: number; timestamp: number }>();
+
 const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
+  const checkRateLimit = (email: string): boolean => {
+    const now = Date.now();
+    const attempts = emailAttempts.get(email);
+
+    if (!attempts) {
+      emailAttempts.set(email, { count: 1, timestamp: now });
+      return true;
+    }
+
+    // Check if we're still within the rate limit window
+    if (now - attempts.timestamp < RATE_LIMIT_WINDOW) {
+      if (attempts.count >= MAX_ATTEMPTS) {
+        const remainingTime = Math.ceil((RATE_LIMIT_WINDOW - (now - attempts.timestamp)) / 1000);
+        toast.error(`Too many attempts. Please try again in ${remainingTime} seconds.`);
+        return false;
+      }
+      // Increment attempt count
+      emailAttempts.set(email, { count: attempts.count + 1, timestamp: attempts.timestamp });
+    } else {
+      // Reset if outside window
+      emailAttempts.set(email, { count: 1, timestamp: now });
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!checkRateLimit(email)) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -67,7 +105,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
 
         <h2 className="text-2xl font-bold mb-4">Join the Waitlist</h2>
         <p className="text-gray-600 mb-6">
-          Be the first to know when v(ai)behunt launches. Get early access to the premier AI-built project showcase platform.
+          Be the first to know when v[AI]behunt launches. Get early access to the premier AI-built project showcase platform.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
