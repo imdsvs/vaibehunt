@@ -26,18 +26,6 @@ const WhySection: React.FC = () => {
       title="Frequently Asked Questions"
       description="Everything you need to know about v(ai)behunt"
       items={faqs}
-      contactInfo={{
-        title: "Still have questions?",
-        description: "Join our waitlist to stay updated and get early access",
-        buttonText: "Join Waitlist",
-        onContact: () => {
-          // This will be handled by the parent component
-          const waitlistButton = document.querySelector('button[onclick*="setIsWaitlistOpen"]');
-          if (waitlistButton) {
-            (waitlistButton as HTMLButtonElement).click();
-          }
-        },
-      }}
       className="py-20 bg-gradient-to-br from-purple-50 to-blue-50"
     />
   );

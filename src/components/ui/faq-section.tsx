@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Mail } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
 
@@ -13,16 +13,10 @@ interface FaqSectionProps extends React.HTMLAttributes<HTMLElement> {
     question: string;
     answer: string;
   }[];
-  contactInfo?: {
-    title: string;
-    description: string;
-    buttonText: string;
-    onContact?: () => void;
-  };
 }
 
 const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
-  ({ className, title, description, items, contactInfo, ...props }, ref) => {
+  ({ className, title, description, items, ...props }, ref) => {
     return (
       <section
         ref={ref}
@@ -56,33 +50,6 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
               />
             ))}
           </div>
-
-          {/* Contact Section */}
-          {contactInfo && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="max-w-md mx-auto mt-12 p-6 rounded-lg text-center bg-card/50 border border-border/50"
-            >
-              <div className="inline-flex items-center justify-center p-2 rounded-full bg-primary/10 text-primary mb-4">
-                <Mail className="h-5 w-5" />
-              </div>
-              <p className="text-sm font-medium text-foreground mb-2">
-                {contactInfo.title}
-              </p>
-              <p className="text-sm text-muted-foreground mb-4">
-                {contactInfo.description}
-              </p>
-              <Button 
-                size="sm" 
-                onClick={contactInfo.onContact}
-                className="bg-primary hover:bg-primary/90"
-              >
-                {contactInfo.buttonText}
-              </Button>
-            </motion.div>
-          )}
         </div>
       </section>
     );
