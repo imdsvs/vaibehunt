@@ -15,15 +15,14 @@ const Hero: React.FC = () => {
               <span>The first AI-built project showcase</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Discover the best <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">AI-powered</span> projects
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-purple-600 to-gray-900">
+              The launchpad for AI-built projects, crafted with nothing but vibe code
             </h1>
             
             <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-  A curated space for AI-built projects — shipped fast, and dripping with vibe. Join the waitlist to be first in.
-</p>
+              A curated space for AI-built projects — shipped fast, and dripping with vibe. Join the waitlist to be first in.
+            </p>
 
-            
             <button 
               onClick={() => setIsWaitlistOpen(true)}
               className="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all transform hover:-translate-y-1 font-medium"
