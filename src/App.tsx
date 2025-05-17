@@ -6,7 +6,6 @@ import HowItWorks from './components/HowItWorks';
 import Toolstacks from './components/Toolstacks';
 import TrendingProjects from './components/TrendingProjects';
 import WhySection from './components/WhySection';
-import CtaSection from './components/CtaSection';
 import Footer from './components/Footer';
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
         <Toolstacks />
         <TrendingProjects />
         <WhySection />
-        <CtaSection />
       </main>
       <Footer />
     </div>
