@@ -20,13 +20,19 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
 
     try {
       // Check if email already exists
-      const { data: existingUser } = await supabase
+      const { data: existingUser, error: selectError } = await supabase
         .from('waitlist')
-        .select('email')
+        .select('*')
         .eq('email', email)
-        .single();
+        .limit(1);
 
-      if (existingUser) {
+      if (selectError) {
+        console.error('Error checking existing user:', selectError);
+        toast.error('Error checking if email exists. Please try again.');
+        return;
+      }
+
+      if (existingUser && existingUser.length > 0) {
         toast.error('You are already on the waitlist!');
         return;
       }
