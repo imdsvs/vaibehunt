@@ -3,8 +3,8 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Mail } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from "../../lib/utils";
+import { Button } from "./button";
 
 interface FaqSectionProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
@@ -26,10 +26,7 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
     return (
       <section
         ref={ref}
-        className={cn(
-          "py-16 w-full bg-gradient-to-b from-transparent via-muted/50 to-transparent",
-          className
-        )}
+        className={cn("py-16 w-full", className)}
         {...props}
       >
         <div className="container">
@@ -40,7 +37,7 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
             transition={{ duration: 0.5 }}
             className="max-w-2xl mx-auto text-center mb-12"
           >
-            <h2 className="text-3xl font-semibold mb-3 bg-gradient-to-r from-foreground via-foreground/80 to-foreground bg-clip-text text-transparent">
+            <h2 className="text-3xl font-semibold mb-3 text-foreground">
               {title}
             </h2>
             {description && (
@@ -49,7 +46,7 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
           </motion.div>
 
           {/* FAQ Items */}
-          <div className="max-w-2xl mx-auto space-y-2">
+          <div className="max-w-2xl mx-auto space-y-3">
             {items.map((item, index) => (
               <FaqItem
                 key={index}
@@ -66,18 +63,22 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="max-w-md mx-auto mt-12 p-6 rounded-lg text-center"
+              className="max-w-md mx-auto mt-12 p-6 rounded-lg text-center bg-card/50 border border-border/50"
             >
-              <div className="inline-flex items-center justify-center p-1.5 rounded-full mb-4">
-                <Mail className="h-4 w-4" />
+              <div className="inline-flex items-center justify-center p-2 rounded-full bg-primary/10 text-primary mb-4">
+                <Mail className="h-5 w-5" />
               </div>
-              <p className="text-sm font-medium text-foreground mb-1">
+              <p className="text-sm font-medium text-foreground mb-2">
                 {contactInfo.title}
               </p>
-              <p className="text-xs text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 {contactInfo.description}
               </p>
-              <Button size="sm" onClick={contactInfo.onContact}>
+              <Button 
+                size="sm" 
+                onClick={contactInfo.onContact}
+                className="bg-primary hover:bg-primary/90"
+              >
                 {contactInfo.buttonText}
               </Button>
             </motion.div>
@@ -108,12 +109,12 @@ const FaqItem = React.forwardRef<
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, delay: index * 0.1 }}
       className={cn(
-        "group rounded-lg",
+        "rounded-lg overflow-hidden",
         "transition-all duration-200 ease-in-out",
         "border border-border/50",
         isOpen
-          ? "bg-gradient-to-br from-background via-muted/50 to-background"
-          : "hover:bg-muted/50"
+          ? "bg-card"
+          : "hover:bg-card/50"
       )}
     >
       <Button
@@ -124,8 +125,7 @@ const FaqItem = React.forwardRef<
         <h3
           className={cn(
             "text-base font-medium transition-colors duration-200 text-left",
-            "text-foreground/70",
-            isOpen && "text-foreground"
+            isOpen ? "text-foreground" : "text-muted-foreground"
           )}
         >
           {question}
@@ -133,12 +133,10 @@ const FaqItem = React.forwardRef<
         <motion.div
           animate={{
             rotate: isOpen ? 180 : 0,
-            scale: isOpen ? 1.1 : 1,
           }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "p-0.5 rounded-full flex-shrink-0",
-            "transition-colors duration-200",
+            "flex-shrink-0",
             isOpen ? "text-primary" : "text-muted-foreground"
           )}
         >
@@ -152,19 +150,19 @@ const FaqItem = React.forwardRef<
             animate={{
               height: "auto",
               opacity: 1,
-              transition: { duration: 0.2, ease: "easeOut" },
+              transition: { duration: 0.2 }
             }}
             exit={{
               height: 0,
               opacity: 0,
-              transition: { duration: 0.2, ease: "easeIn" },
+              transition: { duration: 0.2 }
             }}
           >
             <div className="px-6 pb-4 pt-2">
               <motion.p
-                initial={{ y: -10, opacity: 0 }}
+                initial={{ y: -5, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -10, opacity: 0 }}
+                exit={{ y: -5, opacity: 0 }}
                 className="text-sm text-muted-foreground leading-relaxed"
               >
                 {answer}
